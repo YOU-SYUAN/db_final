@@ -1,0 +1,5 @@
+# 3. 計算每年男性名字和女性名字的總出現次數
+db = db.getSiblingDB("final"); 
+// 在 StateNames 集合中建立索引 
+db.StateNames.createIndex({ Year: 1, Gender: 1}); 
+db.StateNames.aggregate([ { $group: { _id: { Year: "$Year", Gender: "$Gender" }, totalNames: { $sum: "$Count" } } }, { $sort: { "_id.Year": 1, "_id.Gender": 1 } } ], {allowDiskUse: true}).explain("executionStats");
