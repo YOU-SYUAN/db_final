@@ -1,0 +1,6 @@
+# 1. 獲取Mary在每一年中的出現次數
+# final code 
+db = db.getSiblingDB("final"); 
+// 在 NationalNames 集合中建立索引 
+db.NationalNames.createIndex({ Name: 1, Year: 1, Count: 1 }); 
+db.NationalNames.find({ Name: "Mary" }, { _id: 0, Year: 1, Count: 1 }).sort({ Year: 1 }).explain("executionStats");
