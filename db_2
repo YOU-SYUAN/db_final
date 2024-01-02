@@ -1,0 +1,5 @@
+# 2. 找到每個州（State）中最受歡迎的名字
+db = db.getSiblingDB("final"); 
+// 在 StateNames 集合中建立索引 
+db.StateNames.createIndex({ State: 1, Name: 1, Count: 1 }); 
+db.StateNames.aggregate([ { $group: { _id: { State: "$State", Name: "$Name" }, total: { $sum: "$Count" } } }, { $sort: { total: -1 } }, { $group: { _id: "$_id.State", mostPopularName: { $first: "$_id.Name" } } } ], {allowDiskUse: true}).explain("executionStats");
